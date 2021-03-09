@@ -255,6 +255,8 @@ class SnapshotTest(object):
             try:
                 prev_snapshot = self.module[self.test_name]
             except SnapshotNotFound:
+                if os.environ.get('FAIL_ON_SNAPSHOT_NOT_FOUND') is not None:
+                    raise
                 self.store(value)  # first time this test has been seen
             else:
                 try:
